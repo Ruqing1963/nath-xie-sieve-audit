@@ -1,0 +1,107 @@
+Audit of Nath-Xie, arXiv:2501.16723v3, Section 5 -- pure-Python recomputation (grid 1/2000)  [  0.3 s]
+================================================================================================================
+
+1. SIEVE FUNCTIONS
+   half-dimensional (kappa=1/2, beta=1): printed initial segments agree with [FI, (14.2)-(14.3)];
+   the printed f_1 = sqrt(e^g/(pi s)) log(1+2(s-1)+2 sqrt(s(s-1))) equals (e^g/(pi s))^{1/2} int_1^s dt/sqrt(t(t-1)):
+   max |printed - integral form| on [1,3] = 7.77e-16  (so no factor-2 error in f_1)
+   ratio f_1/F_1 = log(sqrt s + sqrt(s-1)) on [1,2]; at s = 1/(2*0.4230) = 1.182033 it is 0.414667
+   closed-form checks of the linear functions: F2(4) = (e^g/2)(1 + int_2^3 log(t-1)/t dt) = 1.0216416, grid 1.0216415;
+     F2(5) = (2e^g/5)(1 + int_2^4 log(t-1)/t dt) = 1.0017404, grid 1.0017404;  f2(4) = e^g log(3)/2 = 0.9783540
+   grid check: max difference between steps 1/2000 and 1/1000 on [2,10] = 2.3e-08
+
+     s   |  F1(s)     f1(s)   | F2 correct  f2 correct | F2 printed  f2 printed | F2 Matlab   f2 Matlab
+    1.00 |  1.50590   0.00000 |  3.56214   0.00000   |  3.56214   0.00000   |  3.56214   0.00000
+    1.25 |  1.34692   0.64815 |  2.84972   0.00000   |  2.84972   0.00000   |  2.84972   0.00000
+    1.50 |  1.22956   0.80964 |  2.37476   0.00000   |  2.37476   0.00000   |  2.37476   0.00000
+    2.00 |  1.06483   0.93851 |  1.78107   0.00000   |  1.78107   0.00000   |  1.78107   0.00000
+    2.50 |  1.01502   0.98262 |  1.42486   0.57773   |  1.42486   0.57773   |  1.08028   1.11765
+    3.00 |  1.00370   0.99656 |  1.18738   0.82303   |  1.18738   0.82303   |  0.65522   1.47475
+    3.50 |  1.00076   0.99928 |  1.06519   0.93256   |  0.86005   0.93256   |  0.67230   1.43462
+    4.00 |  1.00013   0.99986 |  1.02164   0.97835   |  0.80761   0.97835   |  0.93884   1.19775
+    4.50 |  1.00002   0.99998 |  1.00648   0.99363   |  0.83988   0.97649   |  1.15171   0.97068
+    5.00 |  1.00000   1.00000 |  1.00174   0.99824   |  0.88753   0.91478   |  1.21552   0.90883
+    6.00 |  1.00000   1.00000 |  1.00011   0.99990   |  0.93363   0.87337   |  1.06441   1.06019
+    8.00 |  1.00000   1.00000 |  1.00000   1.00000   |  0.89478   0.91132   |  1.07282   1.05228
+   10.00 |  1.00000   1.00000 |  1.00000   1.00000   |  0.90486   0.90128   |  1.05680   1.06828
+   15.00 |  1.00000   1.00000 |  1.00000   1.00000   |  0.90295   0.90320   |  1.06267   1.06241
+   20.00 |  1.00000   1.00000 |  1.00000   1.00000   |  0.90308   0.90307   |  1.06254   1.06254
+   (Matlab system on [2,3]: F2 = e^g e^{2-s}, f2 = e^{-s} int_2^s 2e^g e^t/(t-1) dt; e.g. F2(3) = 0.65522, f2(3) = 1.47475:
+    the 'lower' function exceeds the 'upper' one, f2 > F2 on (2.490, 14.790) approximately)
+   [  0.3 s]
+
+2. CONSTANTS (primes up to 1e+07; tails < 1e-6)  [  2.3 s]
+   C     = 1.772720   (Prop. 4.1, (4.6), Sect. 5: factor (1 - 1/(p-1)^2) for p = 1 (4))
+   C'    = 1.677294   (Prop. 4.3 as printed, (p-2)^2: a misprint; (4.5) gives (p-1)^2)
+   kappa = 1.159643,  c1 = 1.202503,  c2 = 0.660162
+   c3 as printed: the products over p = 1 (4) and p = 3 (4) diverge separately (factors 1 +- 1/(2p) + O(p^-2));
+      in the natural order the printed product equals prod_{p=3(4)}(1-p^-2)^{1/2} prod_{p=1(4)}(1-1/p)(1+p^2/(p-1)^3) = 1.060689
+   c3 (Wirsing / [Martin, Prop. A.3], with the factor (1 - 1/2)^{1/2} of p = 2) = c3_print/sqrt 2 = 0.750020
+   joint singular series of Prop. 4.2: per prime p > 3, p not dividing m: (1-1/(p-1)^2)^2 (1-1/(p-2)^2); p | m: 1
+      printed bound uses (1+1/(p-2)^2)(1-1/(p-1)^2)^2 for all p > 3 (c1 c2^2); H_1(m) <= (2m/phi(2m)) c2 is reversed
+      corrected: prod_{p>3}(1-(p-2)^-2) = 0.819802, c3'' (m-weights 1/k_p, k_p = (1-(p-1)^-2)^2(1-(p-2)^-2)) = 0.811558
+   switched-term coefficient 2 c1 c2^2 c3:  printed 1.111744   Matlab 1.112473   corrected 0.579909   (ratio corrected/printed 0.5216)
+   main prefactor A = C kappa e^{-3g/2}/4 = 0.216213  (Matlab constants: 0.216213)
+   Matlab constants: C 1.772721 kappa 1.159643 c1 1.202491 c2 0.660168 c3 1.061373 (primes to 1e6, 1e6, 1e4, 1e4, 1e4)
+
+3. DIRECT CHECK OF c3: S2(t) = sum b*(m) m/phi(m)^2 ~ c3 (log t)^{1/2}  (Martin, Prop. A.3)  [  2.3 s]
+        t      S2(t)    S2/sqrt(log t)   |  S2 with 1/k_p weights   ratio
+      1e+03    2.07907     0.79105        |    2.23262                0.84947
+      1e+04    2.36892     0.78057        |    2.54818                0.83964
+      1e+05    2.62724     0.77430        |    2.82923                0.83383
+      1e+06    2.86262     0.77016        |    3.08509                0.83001
+      1e+07    3.08028     0.76724        |    3.32151                0.82733
+   two-term fit S2 = c sqrt(L) + d/sqrt(L) through the last two points: c = 0.7497 (prediction c3 = 0.7500; printed 1.0607)
+   same with the 1/k_p weights: c = 0.8112 (prediction c3'' = 0.8116)  [  3.9 s]
+
+4. THE FUNCTIONALS OF SECTION 5 AT THE AUTHORS' POINTS  [  3.9 s]
+   (a) G(0.4230, 0.0249): sigma1 = 1.182033, sigma2 = 20.080321; the constraint s1/sigma1 + s2/sigma2 = 1 with s1 >= 1, s2 >= 2
+       forces s1 in [1, 1.0643], s2 in [2, 3.0924]
+       brief's 'direct' value f1(s1g)F2(s2g)+F1(s1g)f2(s2g)-F1F2 (not admissible: s1/s1g + s2/s2g = 2) = 0.57436
+       over the admissible segment, correct functions: inf = -1.94743, sup = -0.40860;   Matlab functions: inf = -1.94743, sup = 1.34662
+       Matlab functions + Matlab constants    f =  1.34662 at (s1,s2) = (1.0011, 3.0738): main  17.9787  switched 17.9797  G =  -0.00093
+       printed system (segments, no 1/s)      f = -0.33814 at (s1,s2) = (1.0007, 3.0803): main  -4.5145  switched 18.2759  G = -22.79045
+       correct functions, printed constants   f = -0.40859 at (s1,s2) = (1.0030, 3.0420): main  -5.4551  switched 18.2759  G = -23.73101
+       correct functions, corrected consts    f = -0.40859 at (s1,s2) = (1.0030, 3.0420): main  -5.4551  switched  9.5331  G = -14.98819
+       (paper: G(0.4230, 0.0249) = 0.001378)
+       C(theta1) at 0.4230: paper's integrand 0.173147, Matlab integrand 1/sqrt(b(1-b)) 0.170228
+   (b) replication of find_theta_values_G.m with the Matlab functions and constants (sup on a grid instead of fmincon):
+       largest theta2 (step 1e-4) with some theta1 (step 1e-3 from 0.251) giving G > 0: theta2 = 0.0248, first theta1 = 0.422, G = 0.068420
+       (paper: theta2 = 0.0249, theta1 = 0.4230, G = 0.001378)  [  4.2 s]
+   (c) H(0.17, 0.25, 0.449, 0.011); admissible s1 in [1, 1.0646], s2 in [2, 4.6364]
+       Matlab box s1 >= 1, s2 >= 2 for F(sigma1(a), sigma2(a)) is empty for a > 0.0290, so compute_I.m evaluates fmincon at infeasible points there;
+       below, I uses the paper's (5.1) (s1 > 0, s2 >= 1)
+       Matlab functions + Matlab constants    f =  1.50318  I =  3.0074 | main  44.0938  switched 20.2493  lambda*Richert 14.9972  H =    8.8473
+       correct functions, printed constants   f =  0.12546  I =  3.5099 | main   3.6802  switched 20.4574  lambda*Richert 17.5030  H =  -34.2802
+       correct functions, corrected consts    f =  0.12546  I =  3.5099 | main   3.6802  switched 10.6710  lambda*Richert 17.5030  H =  -24.4938
+       (paper: H = 1.2690)
+       objective along the segment with the Matlab functions: 1 local maxima (s1 1.0356: 1.5032); value at s1 = 1: -0.3727, at s1 = max: -1.9458
+       I that reproduces H = 1.2690 with f = 1.50318: 4.5271
+       Matlab box with F = F1(1) F2(2) = 2.68212 where the box is empty: I = 4.5284, H = 1.2625  (paper 1.2690)
+   [  4.3 s]
+
+5. THE METHOD WITH THE CORRECT SIEVE FUNCTIONS
+   R0: constants as printed (c3 = 1.0607, c1 = 1.2025);  R1: corrected constants (coefficient x 0.5216);
+   R2: R1 and the levels of Prop. 4.2 chosen freely: D2 = z2^{s2}, D1 = x^{1/2}/D2 (only 4 D1 D2 <= x^{1/2} (log x)^-B is used)
+       i.e. 1/(theta2 min(theta1, 1/2-theta2)) -> min_{s2>=1} (e^-g F2(s2)/2)/(theta2 (1/2 - s2 theta2))
+
+   (a) unweighted (G > 0): largest theta2 for which some theta1 gives G > 0, and omega(p+2) <= floor(1/theta2)
+       R0: theta2* = 0.002917 (theta1 = 0.4793), 1/theta2* = 342.79  =>  omega(p+2) <= 342   [  4.8 s]
+       R1: theta2* = 0.005627 (theta1 = 0.4619), 1/theta2* = 177.70  =>  omega(p+2) <= 177   [  5.1 s]
+       R2: theta2* = 0.020412 (theta1 = 0.3694), 1/theta2* = 48.99  =>  omega(p+2) <= 48   [  5.5 s]
+
+   (b) weighted (H > 0): minimum of 1/lambda + 1/theta; omega(p+2) < 1/lambda + 1/theta
+       R0: min 1/lam + 1/theta = 59.201  =>  omega(p+2) <= 59   at theta1 0.4850 theta2 0.0006 theta 0.0825 lambda 0.02124
+           main 118.6063  switched 53.5962  lambda*Richert 65.0101;  I (table) 5.91511, I (Gauss) 5.91534  [  6.5 s]
+       R1: min 1/lam + 1/theta = 40.171  =>  omega(p+2) <= 40   at theta1 0.4725 theta2 0.0012 theta 0.1101 lambda 0.03216
+           main 80.6055  switched 36.0069  lambda*Richert 44.5986;  I (table) 5.28995, I (Gauss) 5.29014  [  7.5 s]
+       R2: min 1/lam + 1/theta = 17.429  =>  omega(p+2) <= 17   at theta1 0.3975 theta2 0.0060 theta 0.1949 lambda 0.08130
+           main 32.6976  switched 15.7966  lambda*Richert 16.9010;  I (table) 3.63706, I (Gauss) 3.63716  [ 14.0 s]
+       (R2: the optimal s2 in Prop. 4.2 at theta2 = 0.0060 is 4.605)
+
+   summary: with the correct linear-sieve functions the printed point gives H < 0; within the paper's method
+     R0: Omega(p+2) <= 59 (weighted), <= 342 unweighted
+     R1: Omega(p+2) <= 40 (weighted), <= 177 unweighted
+     R2: Omega(p+2) <= 17 (weighted), <= 48 unweighted
+
+done [ 14.0 s]
