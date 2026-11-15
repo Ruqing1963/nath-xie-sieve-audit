@@ -12,7 +12,7 @@ primes `p <= x` with `p = m^2 + n^2 + 1` and `Omega(p+2) <= 9`. This note recomp
   become `-23.73` and `-34.28`. The reported values are reproduced from the authors' code (`-0.0009`, `1.2625`).
 * Three constants in the switched term (Proposition 4.2) are corrected, and its levels can be chosen more freely.
 * With these changes the method gives `Omega(p+2) <= 17`; with the constants as printed, `Omega(p+2) <= 59`.
-  With the Buchstab fixed point of Part XIV (one-sided rule, n = 1600): `<= 15`.
+  With the Buchstab fixed point of Part XIV (one-sided rule): `<= 15` (15.947 at n = 1600, 15.809 at n = 3200).
 
 The statements are conditional on Propositions 3.10, 4.1 and 4.3 of the Nath–Xie paper. The numerical values come
 from floating-point grid searches, not interval arithmetic.
@@ -24,3 +24,4 @@ from floating-point grid searches, not interval arithmetic.
 | `code/make_figures.py` | the figures (matplotlib) |
 | `code/part14_fixed_point.py` | Remark 6.2 (numpy; needs the Part XIV engine `two-squares-part14/code` next to this repository; about 12 min) |
 | `data/verify_nath_xie.txt`, `data/part14_fixed_point.txt` | outputs of the scripts |
+| `data/part14_margin.txt` | n = 3200 check of the bound 15 (script `code/nath_xie_margin.py` in the Part XIV repository) |
