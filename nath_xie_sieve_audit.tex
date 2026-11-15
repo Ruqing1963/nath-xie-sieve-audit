@@ -103,7 +103,9 @@ in the unsafe direction. (iii)~The levels $D_1\le x^{\theta_1}$ and $D_2\le x^{\
 individually, since only $D_1D_2\le x^{1/2-\epsilon}$ is used. Items (i) and (ii) together halve the switched term,
 and (iii) lowers it further at small $\theta_2$. The numerical values in Theorem~\ref{thm:B} come from a grid
 search in floating point, not from interval arithmetic. The margin is $17.43<18$ for the bound $17$ and $59.20<60$
-for the bound $59$.
+for the bound $59$. Replacing the rectangle bounds of the vector sieve by the Buchstab fixed point of
+\cite{ChenXIV} lowers the bound further, to $\Omega(p+2)\le15$ (Remark~\ref{rem:buchstab}); this is not needed for
+Theorem~\ref{thm:B}.
 
 \section{The criterion}\label{sec:criterion}
 
@@ -502,7 +504,9 @@ the lower bound itself is unaffected.
 \item \texttt{code/verify\_nath\_xie.py}: pure standard library; all numbers in Sections~\ref{sec:functions}--\ref{sec:restore}
 ($\approx$15\,s); output \texttt{data/verify\_nath\_xie.txt}. Option \texttt{--quick}: coarser grids.
 \item \texttt{code/make\_figures.py}: Figures~\ref{fig:functions} and~\ref{fig:restore} (matplotlib).
-\item \texttt{code/part14\_fixed\_point.py}: Remark~\ref{rem:buchstab} (numpy; uses the engine of \cite{ChenXIV}).
+\item \texttt{code/part14\_fixed\_point.py}: Remark~\ref{rem:buchstab} (numpy; uses the engine of \cite{ChenXIV}); output
+\texttt{data/part14\_fixed\_point.txt}. The file \texttt{data/part14\_margin.txt} is a copy of the output of
+\texttt{code/nath\_xie\_margin.py} in the repository of \cite{ChenXIV}.
 \end{itemize}
 The Matlab files cited are those in the folder \texttt{Computation\_files} of the arXiv source of \cite{NX} (version~3).
 
