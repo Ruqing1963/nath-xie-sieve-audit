@@ -1,6 +1,6 @@
 # An audit and restoration of the vector-sieve estimates for primes m^2 + n^2 + 1 with p + 2 almost prime
 
-Ruqing Chen (2026).
+Ruqing Chen (2026). doi:[10.5281/zenodo.24237370](https://doi.org/10.5281/zenodo.24237370)
 
 K. Nath and L. Xie (Acta Arith. 223 (2026), 51–82; arXiv:2501.16723v3) state that there are `>> x (log x)^(-5/2)`
 primes `p <= x` with `p = m^2 + n^2 + 1` and `Omega(p+2) <= 9`. This note recomputes the numerical inequality
